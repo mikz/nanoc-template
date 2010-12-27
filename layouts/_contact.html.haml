@@ -1,0 +1,20 @@
+%h1
+  Kontakt
+%dl
+  %dt M&D stěhování
+  %dt Adresa:
+  %dd
+    Stržná 1141/63,<br/>Praha 6-Suchdol, 165&nbsp;00
+    
+  %dt Telefon:
+  %dd 
+    %em +420
+    775 075 036
+  %dd
+    %em +420
+    776 302 126
+  %dt Email:
+  %dd 
+    = mail_to I18n.t("email"), nil, :encode => "javascript"
+    %noscript
+      = mail_to I18n.t("email"), nil, :encode => "hex"

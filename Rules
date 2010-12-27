@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+require File.expand_path("../init", __FILE__)
+
+Dir["config/*.rb"].each do |c|
+  require File.expand_path(c, File.dirname(__FILE__))
+end
+
+Compass.add_project_configuration 'config/compass.config'
+
+compile '/stylesheets/*/' do
+  next if item.identifier.split("/").last =~ /^_/ # pass partials nested in folders
+  
+  case item[:extension]
+  when "sass"
+    filter :sass, Compass.sass_engine_options
+  else
+  end
+end
+
+route '/stylesheets/*/' do
+  next if item.identifier =~ /^\/stylesheets\/(.*?\/)?_/
+  item.identifier.chop + '.css'
+end
+
+compile '*' do
+  case item[:extension]
+  when "html.haml", "html"
+    filter :haml
+    layout 'default'
+  when "jpg", "jpeg", "png"
+  else
+  end
+end
+
+reps = [:thumbnail, :preview]
+reps.each do |rep|
+  compile '*', :rep => rep.to_sym do
+    next if item[:reps].nil? || !item[:reps][rep]
+    item[:reps][rep][:filters].each do |filter|
+      if filter.is_a? Hash
+        filter.each_pair do |filter, params|
+          filter filter, params
+        end
+      else
+        filter filter
+      end
+    end
+  end
+end
+  
+route "*" do
+
+  case item[:extension]
+  when "html", "html.haml"
+    item.identifier + "index.html"
+  else
+    item.identifier.chop + "." + item[:extension]
+  end
+#  item.identifier + "index.html"
+end
+
+route "*", :rep => :thumbnail do
+  next if item[:reps].nil? || !item[:reps][:thumbnail]
+  item.identifier.chop + "_thumb.png"
+end
+route "*", :rep => :preview do
+  next if item[:reps].nil? || !item[:reps][:preview]
+  item.identifier.chop + "_prev.png"
+end
+
+layout '*', :haml, :format => :html5

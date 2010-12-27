@@ -1,0 +1,13 @@
+@import compass/css3/font-face
+  
+=underline($mode: underline)
+  text-decoration: $mode
+  @if $mode == underline
+    $mode: none
+  @else if $mode == none
+    $mode: underline
+  &:hover
+    text-decoration: $mode
+
+=myriad-font-face
+  +font-face("Myriad Pro Regular", font-files('MyriadPro-Regular', 'otf'))

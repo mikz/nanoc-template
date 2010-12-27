@@ -1,0 +1,36 @@
+!!!
+%html{:lang => @layout[:lang]}
+  %head
+    %meta{:charset=>"utf-8"}
+    %meta{:name => :description, :content => @layout[:description]}
+    %meta{:name => :robots, :content => "follow, index"}
+    %title= title title_path(@item), @layout[:company]
+    %link{:rel=>"stylesheet", :type => "text/css", :href => "/stylesheets/main.css", :media => "screen"}
+    /[if IE 6]
+      %link{:rel=>"stylesheet", :type => "text/css", :href => "/stylesheets/ie.css", :media => "screen"}
+    /[if IE 7]
+      %link{:rel=>"stylesheet", :type => "text/css", :href => "/stylesheets/ie.css", :media => "screen"}
+    %script{:src => "/javascripts/libs/head.js", :type => "text/javascript"}
+    %script{:src => "/javascripts/ga.js", :type => "text/javascript", :async => true}
+    :javascript
+      head.js(#{@layout[:javascripts].to_json});
+    
+  %body
+    #main
+      header#header
+          %a.logo{:href => "/"}=@layout[:company]
+          nav
+            %ul.menu
+              %li= link_to "Úvod", "/"
+              %li= link_to "O nás", "/o-nas/"
+              %li= link_to "Naše služby", "/sluzby/"
+              %li= link_to "Kontakt a ceny", "/kontakt-a-ceny/"
+      #content
+        .column.sidebar
+          =partial "contact"
+          = @item[:content_for_sidebar]
+        .column.main
+          = yield
+      #footer
+        :markdown
+          Nanoc templat &copy; 2010
