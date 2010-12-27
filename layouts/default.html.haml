@@ -17,14 +17,14 @@
     
   %body
     #main
-      header#header
-          %a.logo{:href => "/"}=@layout[:company]
-          nav
-            %ul.menu
-              %li= link_to "Úvod", "/"
-              %li= link_to "O nás", "/o-nas/"
-              %li= link_to "Naše služby", "/sluzby/"
-              %li= link_to "Kontakt a ceny", "/kontakt-a-ceny/"
+      %header#header
+        %a.logo{:href => "/"}=@layout[:company]
+        %nav
+          %ul.menu
+            %li= link_to "Úvod", "/"
+            %li= link_to "O nás", "/o-nas/"
+            %li= link_to "Naše služby", "/sluzby/"
+            %li= link_to "Kontakt a ceny", "/kontakt-a-ceny/"
       #content
         .column.sidebar
           =partial "contact"

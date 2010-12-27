@@ -2,4 +2,4 @@ company: "Nanoc template"
 subtitle: "just template"
 description: "Just template&helip;"
 lang: cs
-javascripts: ["lis/jquery.js", "libs/jquery.colorbox.js", "applicatio.js"]
+javascripts: ["lis/jquery.js", "libs/jquery_colorbox.js", "applicatio.js"]

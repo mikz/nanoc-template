@@ -11,10 +11,6 @@ def images images = @item[:images]
   end
 end
 
-def gallery title = "Příklady použití:"
-  render "_gallery", :title => title
-end
-
 
 def find_items ident
   ident.gsub!("*", "(.+)")
